@@ -65,7 +65,7 @@
     <div class="dropdown-container">
         <a href="${pageContext.request.contextPath}/courseReg">Course Registration </a>
         <a href="${pageContext.request.contextPath}/studReg">Student Registration </a>
-        <a href=${pageContext.request.contextPath}/studied>Student Search </a>
+        <a href=${pageContext.request.contextPath}/studView>Student Search </a>
     </div>
     <a href="${pageContext.request.contextPath}/userView">Users Management</a>
 </div>

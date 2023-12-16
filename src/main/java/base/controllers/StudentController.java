@@ -68,7 +68,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/Studied")
+    @GetMapping("/studView")
     public String displayStudents(Model model) {
         model.addAttribute("students", studentDao.getAllStudents());
         model.addAttribute("newStudent", new Student());
