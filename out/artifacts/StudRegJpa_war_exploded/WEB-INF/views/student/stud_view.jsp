@@ -7,18 +7,19 @@
 </c:import>
 <div class="main_contents">
     <div id="sub_content">
+        <%--@elvariable id="student" type="base"--%>
         <form:form class="row g-3 mt-3 ms-2" action="/studSearch" method="post" modelAttribute="student">
             <div class="col-auto">
                 <label for="studId" class="visually-hidden">studentID</label>
-                <form:input type="text"  class="form-control" id="studId" placeholder="Student ID" path="id" />
+                <input type="text"  class="form-control" id="studId" placeholder="Student ID"/>
             </div>
             <div class="col-auto">
                 <label for="studName" class="visually-hidden">studentName</label>
-                <form:input type="text" class="form-control" id="studName" placeholder="Student Name" path="name" />
+                <input type="text" class="form-control" id="studName" placeholder="Student Name"  />
             </div>
             <div class="col-auto">
-                <label for="studcoures" class="visually-hidden">Course</label>
-                <input type="text" class="form-control" id="studcoures" placeholder="Course" name="course" />
+                <label for="AttendCoures" class="visually-hidden">Course</label>
+                <input type="text" class="form-control" id="AttendCoures" placeholder="Course" name="course" />
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3 " >
@@ -62,7 +63,7 @@
                     <tr>
                         <th scope="row">${loop.index+1}</th>
                         <td>${stud.name}</td>
-                        <td><img src="../assets/imgs/${stud.photo}" alt="no photo" width="60px" height="60px"></td>
+                        <td><img src="../assets/image/${stud.imageFilePath}" alt="no photo" width="60px" height="60px"></td>
                         <!-- Iterate through courses and display without brackets -->
                         <td>
                             <c:forEach items="${stud.courses}" var="course" varStatus="courseLoop">
@@ -72,7 +73,7 @@
 
                         <td>
                         <td>
-                            <a href="/studDetail?id=${stud.id}"><button type="submit" class="btn btn-secondary mb-2">See More</button></a>
+                            <a href="${pageContext.request.contextPath}/studDetail?id=${stud.id}"><button type="submit" class="btn btn-secondary mb-2">See More</button></a>
                         </td>
                     </tr>
                 </c:forEach>
