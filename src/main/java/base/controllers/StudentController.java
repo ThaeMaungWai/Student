@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 
@@ -36,13 +37,13 @@ public class StudentController {
     public String createStudent(@ModelAttribute("student") Student student,
                                 @RequestParam("image") MultipartFile image,
                                 @RequestParam(value = "courseAttend", required = false) List<String> attendedCourses,
-                                 Model model) {
+                                Model model, HttpServletRequest request) {
         try {
             // Retrieve courses based on their names from the list of attended courses
             List<Course> courses = studentDao.getCoursesByNames(attendedCourses);
 
             // Perform logic to save the image file to your project directory
-            String imagePath = studentDao.saveImage(image); // Replace this with your logic to save the image
+            String imagePath = studentDao.saveImage(image,request); // Replace this with your logic to save the image
 
             // Set the image file path in the student object
             student.setImageFilePath(imagePath);

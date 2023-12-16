@@ -10,6 +10,7 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -58,28 +59,40 @@ public class StudentDao {
 
 
     //Save Image
- public String saveImage(MultipartFile file) throws IOException {
-     // Get the file bytes
-     byte[] bytes = file.getBytes();
+    public String saveImage(MultipartFile file, HttpServletRequest request) throws IOException {
+        String image = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        String imagesDirectory = rootDirectory + "/WEB-INF/assets/image/"; // Update this with your desired directory
 
-     // Define the file path where you want to store the image
-     String directoryPath = "../assets/image/" + file.getOriginalFilename();
+        Path directory = Paths.get(imagesDirectory);
+        if (!Files.exists(directory)) {
+            Files.createDirectories(directory);
+        }
 
-     Path directory = Paths.get(directoryPath);    // Create the directory if it doesn't exist
+        Path imagePath = Paths.get(imagesDirectory, image);
+        Files.write(imagePath, file.getBytes());
 
-     if (!Files.exists(directory)) {
-         Files.createDirectories(directory);
-     }
+        return image; // Return the saved image file name
+    }
 
-     // Define the file path within the directory
-     String imagePath = directoryPath + file.getOriginalFilename();
 
-     // Save the image to the specified path
-     Path filePath = Paths.get(imagePath);
-     Files.write(filePath, bytes);
 
-     return imagePath; // Return the saved image file path
- }
+// public String saveImage(MultipartFile file) throws IOException {
+//     // Get the file bytes
+//     byte[] bytes = file.getBytes();
+//     // Define the file path where you want to store the image
+//     String directoryPath = "/WEB-INF/assets/image/" + file.getOriginalFilename();
+//     Path directory = Paths.get(directoryPath);    // Create the directory if it doesn't exist
+//     if (!Files.exists(directory)) {
+//         Files.createDirectories(directory);
+//     }
+//     // Define the file path within the directory
+//     String imagePath = directoryPath + file.getOriginalFilename();
+//     // Save the image to the specified path
+//     Path filePath = Paths.get(imagePath);
+//     Files.write(filePath, bytes);
+//     return imagePath; // Return the saved image file path
+// }
 
     // increase id in register page
     public String getLatestStudentId() {
