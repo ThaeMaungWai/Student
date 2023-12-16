@@ -89,7 +89,7 @@ public class StudentController {
     @GetMapping("/studentDetail")
     public String getStudentProfileForm(@RequestParam("id")String id , Model model){
         model.addAttribute("student",studentDao.findStudentById(id));
-        return "student/stu_detail";
+        return "student/stud_detail";
     }
 
 
