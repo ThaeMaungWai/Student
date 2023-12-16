@@ -11,7 +11,7 @@
     <!--    Add Support For Conversion ,Formatting and Validation support-->
     <mvc:annotation-driven />
     <mvc:resources mapping="../assets/**" location="/WEB-INF/assets/" />
-    <mvc:resources mapping="../assets/image/**" location="/WEB-INF/assets/image/" />
+<!--    <mvc:resources mapping="../assets/image/**" location="/WEB-INF/assets/image/" />-->
 
     <!--    Define Spring MVC View Resolver-->
     <bean id="viewResolver"  class="org.springframework.web.servlet.view.InternalResourceViewResolver" >

@@ -26,6 +26,13 @@
                     Search
                 </button>
             </div>
+
+            <div class="col-auto">
+                <button type="button" class="btn btn-secondary " onclick="location.href = '/studReg'">
+                    Add
+                </button>
+            </div>
+
             <div class="col-auto">
                 <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal3">Rest</button>
                 <!--model-->
@@ -63,15 +70,12 @@
                     <tr>
                         <th scope="row">${loop.index+1}</th>
                         <td>${stud.name}</td>
-                        <td><img src="../assets/image/${stud.imageFilePath}" alt="no photo" width="60px" height="60px"></td>
-                        <!-- Iterate through courses and display without brackets -->
+                        <td><img src="../assets/${stud.imageFilePath}" alt="no photo" width="60px" height="60px"></td>
                         <td>
                             <c:forEach items="${stud.courses}" var="course" varStatus="courseLoop">
                                 ${course.name}<c:if test="${!courseLoop.last}">, </c:if>
                             </c:forEach>
                         </td>
-
-                        <td>
                         <td>
                             <a href="${pageContext.request.contextPath}/studDetail?id=${stud.id}"><button type="submit" class="btn btn-secondary mb-2">See More</button></a>
                         </td>
