@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/userReg")
     public String registerUser(@ModelAttribute("user")User user){
         int i = userDao.createUser(user);
-        return "redirect:/userView";
+        return "redirect:/logout";
     }
 
     @GetMapping("/userView")
