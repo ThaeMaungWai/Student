@@ -94,9 +94,9 @@
             </fieldset>
             <div class="row mb-4">
                 <div class="col-md-2"></div>
-                <label for="imageFilePath" class="col-md-2 col-form-label">Photo</label>
+                <label for="image" class="col-md-2 col-form-label">Photo</label>
                 <div class="col-md-4">
-                    <input type="file" class="form-control" id="imageFilePath" name="imageFilePath">
+                    <input type="file" class="form-control" id="image" name="image">
                 </div>
             </div>
 
