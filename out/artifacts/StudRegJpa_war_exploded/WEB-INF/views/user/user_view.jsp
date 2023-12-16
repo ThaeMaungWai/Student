@@ -59,7 +59,6 @@
                     <td>${loop.index+1}</td>
                     <td>${user.name}</td>
                     <td>${user.email}</td>
-<%--                    <c:if test="${not empty sessionScope.admin}">--%>
                         <td>
                             <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="location.href = '/userDelete?id=${user.id}'">
                                 Delete
@@ -70,7 +69,6 @@
                             Update
                         </button>
                     </td>
-<%--                    </c:if>--%>
                 </tr>
             </c:forEach>
             </tbody>
