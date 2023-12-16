@@ -35,7 +35,8 @@ public class StudentController {
     @PostMapping("/stud_reg")
     public String createStudent(@ModelAttribute("student") Student student,
                                 @RequestParam("image") MultipartFile image,
-                                @RequestParam(value = "courseAttend", required = false) List<String> attendedCourses) {
+                                @RequestParam(value = "courseAttend", required = false) List<String> attendedCourses,
+                                 Model model) {
         try {
             // Retrieve courses based on their names from the list of attended courses
             List<Course> courses = studentDao.getCoursesByNames(attendedCourses);
@@ -53,6 +54,9 @@ public class StudentController {
             int result = studentDao.createStudent(student);
 
             if (result == 1) {
+                model.addAttribute("students", studentDao.getAllStudents());
+                model.addAttribute("newStudent", new Student());
+
                 // Successful insertion, redirect to a success page
                 return "student/stud_view";
             } else {

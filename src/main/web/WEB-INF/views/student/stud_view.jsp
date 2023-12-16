@@ -63,11 +63,11 @@
                     <tr>
                         <th scope="row">${loop.index+1}</th>
                         <td>${stud.name}</td>
-                        <td><img src="../assets/image/${stud.imageFilePath}" alt="no photo" width="60px" height="60px"></td>
+                        <td><img src="../assets/image/${stud.image}" alt="no photo" width="60px" height="60px"></td>
                         <!-- Iterate through courses and display without brackets -->
                         <td>
                             <c:forEach items="${stud.courses}" var="course" varStatus="courseLoop">
-                                ${fn:trim(course)}<c:if test="${!courseLoop.last}">, </c:if>
+                                ${course.name}<c:if test="${!courseLoop.last}">, </c:if>
                             </c:forEach>
                         </td>
 

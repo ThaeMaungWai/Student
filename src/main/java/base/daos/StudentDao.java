@@ -63,7 +63,7 @@ public class StudentDao {
      byte[] bytes = file.getBytes();
 
      // Define the file path where you want to store the image
-     String directoryPath = "/WEB-INF/assets/image/" + file.getOriginalFilename();
+     String directoryPath = "../assets/image/" + file.getOriginalFilename();
 
      Path directory = Paths.get(directoryPath);    // Create the directory if it doesn't exist
 
@@ -79,15 +79,7 @@ public class StudentDao {
      Files.write(filePath, bytes);
 
      return imagePath; // Return the saved image file path
-
  }
-
-
-
-
-
-
-
 
     // increase id in register page
     public String getLatestStudentId() {
