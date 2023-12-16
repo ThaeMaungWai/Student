@@ -28,7 +28,7 @@ public class Student {
     @NotBlank
     private String education;
     @NotBlank
-    @Column(name = "image_file_path")
+//    @Column(name = "image_file_path")
     private String imageFilePath; // Assuming this holds the path to the image file
 
     @ManyToMany
