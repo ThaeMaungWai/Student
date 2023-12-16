@@ -58,7 +58,7 @@ public class StudentController {
             } else {
                 // Handle insertion failure
                 // You can redirect to an error page or show an error message
-                return "redirect:/students/error";
+                return "redirect:/students/stud_reg";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,6 +66,13 @@ public class StudentController {
             // Redirect to an error page or show an error message
             return "redirect:/students/error";
         }
+    }
+
+    @GetMapping("/StudView")
+    public String displayStudents(Model model) {
+        model.addAttribute("students", studentDao.getAllStudents());
+        model.addAttribute("newStudent", new Student());
+        return "student/stud_view"; // Replace with the actual view name
     }
 
 

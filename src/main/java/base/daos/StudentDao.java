@@ -2,6 +2,7 @@ package base.daos;
 
 import base.models.Course;
 import base.models.Student;
+import base.models.User;
 import base.service.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -117,5 +118,20 @@ public class StudentDao {
         return latestStudentId;
     }
 
+
+    public List<Student> getAllStudents(){
+        List<Student> students;
+        EntityManager entityManager = null ;
+        try {
+            entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
+            entityManager.getTransaction().begin();
+            students = entityManager.createQuery("SELECT s FROM Student s" , Student.class).getResultList();
+            entityManager.getTransaction().commit();
+        }finally {
+            assert entityManager != null;
+            entityManager.close();
+        }
+        return students;
+    }
 
 }
