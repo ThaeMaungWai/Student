@@ -6,9 +6,9 @@
     <c:param name="title" value="Student Search" />
 </c:import>
 <style> .circular-img {
-    width: 60px; /* Adjust the width and height as needed */
-    height: 60px;
-    border-radius: 50%; /* Makes the image circular */
+    width: 80px; /* Adjust the width and height as needed */
+    height: 80px;
+    border-radius: 70%; /* Makes the image circular */
     object-fit: cover; /* Ensures the image covers the circular container */
 }</style>
 <div class="main_contents">
@@ -38,26 +38,8 @@
                     Add
                 </button>
             </div>
-
             <div class="col-auto">
-                <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal3">Rest</button>
-                <!--model-->
-                <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel3">My Apologize</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Sorry , Doesn't Support this Feature Yet! <br><br>
-                                Developing in progress.... :)
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn btn-danger mb-3" onclick="location.href = '/studView'">Rest</button>
             </div>
         </form:form>
         <div>
@@ -76,14 +58,16 @@
                     <tr>
                         <th scope="row">${loop.index+1}</th>
                         <td>${stud.name}</td>
-                        <td><img src="${pageContext.request.contextPath}/assets/image/${stud.imageFilePath}" alt="no photo" width="60px" height="60px"></td>
+                        <td>
+                            <img src="${pageContext.request.contextPath}/assets/image/${stud.imageFilePath}" alt="StudentImage" class="circular-img">
+                        </td>
                         <td>
                             <c:forEach items="${stud.courses}" var="course" varStatus="courseLoop">
                                 ${course.name}<c:if test="${!courseLoop.last}">, </c:if>
                             </c:forEach>
                         </td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/studDetail?id=${stud.id}"><button type="submit" class="btn btn-secondary mb-2">See More</button></a>
+                            <a href="${pageContext.request.contextPath}/studentDetail?id=${stud.id}"><button type="submit" class="btn btn-secondary mb-2">See More</button></a>
                         </td>
                     </tr>
                 </c:forEach>

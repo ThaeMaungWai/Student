@@ -5,6 +5,7 @@ import base.models.Student;
 import base.models.User;
 import base.service.JPAUtil;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
@@ -75,25 +76,6 @@ public class StudentDao {
         return image; // Return the saved image file name
     }
 
-
-
-// public String saveImage(MultipartFile file) throws IOException {
-//     // Get the file bytes
-//     byte[] bytes = file.getBytes();
-//     // Define the file path where you want to store the image
-//     String directoryPath = "/WEB-INF/assets/image/" + file.getOriginalFilename();
-//     Path directory = Paths.get(directoryPath);    // Create the directory if it doesn't exist
-//     if (!Files.exists(directory)) {
-//         Files.createDirectories(directory);
-//     }
-//     // Define the file path within the directory
-//     String imagePath = directoryPath + file.getOriginalFilename();
-//     // Save the image to the specified path
-//     Path filePath = Paths.get(imagePath);
-//     Files.write(filePath, bytes);
-//     return imagePath; // Return the saved image file path
-// }
-
     // increase id in register page
     public String getLatestStudentId() {
         String latestStudentId = "STU001"; // Initial student ID
@@ -122,8 +104,6 @@ public class StudentDao {
         }
         return latestStudentId;
     }
-
-
     public List<Student> getAllStudents(){
         List<Student> students;
         EntityManager entityManager = null ;
@@ -139,4 +119,23 @@ public class StudentDao {
         return students;
     }
 
+
+    // Update call with Id
+    public Student findStudentById(String studentId) {
+        EntityManager entityManager = null;
+        Student student = null;
+        try {
+            entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
+            student = entityManager.find(Student.class, studentId);
+            if (student == null) {
+                // Handle the case where the user is not found, e.g., throw an exception
+                throw new EntityNotFoundException("Student not found with ID: " + studentId);
+            }
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+        return student;
+    }
 }

@@ -71,7 +71,6 @@ public class UserDao {
     public int updateUser(User updatedUser) {
         EntityManager entityManager = null;
         int updateResult;
-
         try {
             entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
             entityManager.getTransaction().begin();
