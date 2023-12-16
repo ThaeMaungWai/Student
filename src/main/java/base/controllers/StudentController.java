@@ -77,6 +77,9 @@ public class StudentController {
     public String displayStudents(Model model) {
         model.addAttribute("students", studentDao.getAllStudents());
         model.addAttribute("newStudent", new Student());
+
+
+        System.out.println(studentDao.getAllStudents());
         return "student/stud_view"; // Replace with the actual view name
     }
 

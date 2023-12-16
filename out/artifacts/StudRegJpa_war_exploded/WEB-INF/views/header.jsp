@@ -16,6 +16,7 @@
     String date = dateFormat.format(currentDate);
 %>
 
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

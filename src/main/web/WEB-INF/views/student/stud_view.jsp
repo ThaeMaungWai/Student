@@ -5,6 +5,12 @@
 <c:import url="/WEB-INF/views/header.jsp" >
     <c:param name="title" value="Student Search" />
 </c:import>
+<style> .circular-img {
+    width: 60px; /* Adjust the width and height as needed */
+    height: 60px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the circular container */
+}</style>
 <div class="main_contents">
     <div id="sub_content">
         <%--@elvariable id="student" type="base"--%>
