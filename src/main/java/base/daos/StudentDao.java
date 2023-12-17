@@ -18,6 +18,7 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -167,5 +168,75 @@ public class StudentDao {
             }
         }
         return deleteResult;
+    }
+
+    // Update student data
+    public int updateStudent(Student updatedStudent) {
+        EntityManager entityManager = null;
+        int updateResult;
+        try {
+            entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
+            entityManager.getTransaction().begin();
+
+            Student existingStudent = entityManager.find(Student.class, updatedStudent.getId());
+
+            if (existingStudent != null) {
+                // Update the existing student entity with the updated values
+                existingStudent.setName(updatedStudent.getName());
+                existingStudent.setDob(updatedStudent.getDob());
+                existingStudent.setGender(updatedStudent.getGender());
+                existingStudent.setPhone(updatedStudent.getPhone());
+                existingStudent.setEducation(updatedStudent.getEducation());
+                existingStudent.setImageFilePath(updatedStudent.getImageFilePath());
+                existingStudent.setCourses(updatedStudent.getCourses());
+
+                entityManager.getTransaction().commit();
+                updateResult = 1;
+            } else {
+                entityManager.getTransaction().rollback();
+                throw new EntityNotFoundException("Student not found with ID: " + updatedStudent.getId());
+            }
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+        return updateResult;
+    }
+
+    //Student Search
+    public  List<Student> searchStudentByName(String name) {
+        EntityManager entityManager = null;
+        try {
+            entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
+            TypedQuery<Student> query = entityManager.createQuery(
+                    "SELECT s FROM Student s WHERE s.name LIKE :name", Student.class);
+            query.setParameter("name", "%" + name + "%");
+            return query.getResultList();
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+    public  List<Student> searchStudentById(String studentId) {
+        List<Student> students = new ArrayList<>();
+
+        try (EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager()) {
+            // Using JPA query to select a Student by ID
+            Query query = em.createQuery("SELECT s FROM Student s WHERE s.id = :studentId");
+            query.setParameter("studentId", studentId);
+
+            // Execute the query and get the result list
+            List<Student> resultList = query.getResultList();
+
+            // Add the result entities to the list
+            students.addAll(resultList);
+        } catch (Exception e) {
+            System.out.println("Searching student by ID failed: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return students;
     }
 }

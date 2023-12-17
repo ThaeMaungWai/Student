@@ -14,18 +14,14 @@
 <div class="main_contents">
     <div id="sub_content">
         <%--@elvariable id="student" type="base"--%>
-        <form:form class="row g-3 mt-3 ms-2" action="/studSearch" method="post" modelAttribute="student">
+        <form:form class="row g-3 mt-3 ms-2" action="/studentSearch" method="post" modelAttribute="students">
             <div class="col-auto">
-                <label for="studId" class="visually-hidden">studentID</label>
-                <input type="text"  class="form-control" id="studId" placeholder="Student ID"/>
+                <label for="stud" class="visually-hidden">studentID</label>
+                <input type="text"  class="form-control" id="stud" placeholder="Student ID" />
             </div>
             <div class="col-auto">
                 <label for="studName" class="visually-hidden">studentName</label>
                 <input type="text" class="form-control" id="studName" placeholder="Student Name"  />
-            </div>
-            <div class="col-auto">
-                <label for="AttendCoures" class="visually-hidden">Course</label>
-                <input type="text" class="form-control" id="AttendCoures" placeholder="Course" name="course" />
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3 " >
@@ -47,6 +43,7 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Student ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Photo</th>
                     <th scope="col">Courses</th>
@@ -57,6 +54,7 @@
                 <c:forEach items="${students}" var="stud" varStatus="loop">
                     <tr>
                         <th scope="row">${loop.index+1}</th>
+                        <td>${stud.id}</td>
                         <td>${stud.name}</td>
                         <td>
                             <img src="${pageContext.request.contextPath}/assets/image/${stud.imageFilePath}" alt="StudentImage" class="circular-img">
