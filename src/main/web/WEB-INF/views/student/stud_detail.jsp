@@ -1,3 +1,6 @@
+<%@ page import="base.models.Course" %>
+<%@ page import="base.daos.CourseDao" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -5,6 +8,12 @@
 <c:import url="/WEB-INF/views/header.jsp" >
     <c:param name="title" value="Student Detail" />
 </c:import>
+<%
+    CourseDao courseDao = new CourseDao(); // Initialize your CourseDao
+    List<Course> courses = courseDao.getAllCourses(); // Fetch courses using your DAO
+    request.setAttribute("course", courses); // Set courses as a request attribute
+%>
+
 <div class="main_contents">
     <div id="sub_content">
         <form:form action="/studUpdate" method="post" modelAttribute="student" enctype="multipart/form-data">
@@ -77,36 +86,22 @@
                 <div class="col-md-2"></div>
                 <legend class="col-form-label col-md-2 pt-0">Attend</legend>
                 <div class="col-md-4">
-
-                    <c:forEach items="${courses}" var="course" varStatus="loop">
+                    <c:forEach items="${course}" var="course">
                         <div class="form-check-inline col-md-2">
-                            <c:choose>
-                                <c:when test="${fn:length(courseByStud) > 0}">
-                                    <c:forEach items="${courseByStud}" var="selectedCourse">
-                                        <input type="checkbox" class="form-check-input" id="gridRadios${loop.index}" name="courses" value="${course.id}"
-                                                <c:if test="${course.id eq selectedCourse.id}"> checked="checked" </c:if>
-                                        />
-                                    </c:forEach>
-                                </c:when>
-                                <c:otherwise>
-                                    <input type="checkbox" class="form-check-input" id="gridRadios${loop.index}" name="courses" value="${course.id}"/>
-                                </c:otherwise>
-                            </c:choose>
-                            <label class="form-check-label" for="gridRadios${loop.index}">
+                            <input class="form-check-input" type="checkbox" name="courseAttend" id="attend_${course.id}" value="${course.name}">
+                            <label class="form-check-label" for="attend_${course.id}">
                                     ${course.name}
                             </label>
                         </div>
                     </c:forEach>
-
                 </div>
             </fieldset>
 
             <div class="row mb-4">
                 <div class="col-md-2"></div>
-                <label for="photo" class="col-md-2 col-form-label">Photo</label>
+                <label for="image" class="col-md-2 col-form-label">Photo</label>
                 <div class="col-md-4">
-                    <form:input type="file" class="form-control" id="photo" path="file" />
-                    <form:input type="hidden"  id="image"   path="photo"/>
+                    <input type="file" class="form-control" id="image" name="image">
                 </div>
             </div>
 
@@ -114,14 +109,18 @@
                 <div class="col-md-4"></div>
 
                 <div class="col-md-4">
+                    <div class="col-md-6">
+
                     <button type="submit" class="btn btn-secondary">
                         <span>Update</span>
                     </button>
-                </div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-danger " onclick="location.href = '/studDelete?id=${student.id}'">
+                    <button type="button" class="btn btn-danger " onclick="location.href = '/studentDelete?id=${student.id}'">
                         Delete
                     </button>
+                        <button type="button" class="btn btn-secondary  " onclick="location.href = '/studView'">
+                            Back
+                        </button>
+                    </div>
                 </div>
             </div>
         </form:form>

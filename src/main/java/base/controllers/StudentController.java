@@ -91,7 +91,13 @@ public class StudentController {
         model.addAttribute("student",studentDao.findStudentById(id));
         return "student/stud_detail";
     }
+//Delete Student
 
+    @GetMapping("/studentDelete")
+    public String studentDelete(@RequestParam("id")String id ){
+        int result =  studentDao.deleteStudent(id);
+        return "redirect:/studView";
+    }
 
 
 }

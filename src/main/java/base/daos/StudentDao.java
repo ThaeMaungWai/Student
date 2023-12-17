@@ -138,4 +138,34 @@ public class StudentDao {
         }
         return student;
     }
+//Update data from id call method
+
+
+
+    //Delete student
+
+    public int deleteStudent(String studentId) {
+        EntityManager entityManager = null;
+        int deleteResult;
+        try {
+            entityManager = JPAUtil.getEntityManagerFactory().createEntityManager();
+            entityManager.getTransaction().begin();
+
+            Student existingStudent = entityManager.find(Student.class, studentId);
+
+            if (existingStudent!= null) {
+                entityManager.remove(existingStudent);
+                entityManager.getTransaction().commit();
+                deleteResult = 1;
+            } else {
+                entityManager.getTransaction().rollback();
+                throw new EntityNotFoundException("Student not found with ID: " + studentId);
+            }
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+        return deleteResult;
+    }
 }
